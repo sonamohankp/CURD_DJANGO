@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+  
+{% endblock title %}
+
+{% block content %}
+  <table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>
+                <a href=" {% url 'home' %}" class="btn btn-outline-success">
+                    <i class="bi bi-file-plus-fill"></i>Add New
+                </a>
+            </td>
+        </tr>
+        <tbody>
+            {% for i in  emp_list %}
+              <tr>
+                <td>{{i.fullname}}</td>
+                <td>{{i.mobile}}</td>
+                <td>{{i.postion}}</td>
+                <td>
+                    <a href="{% url 'update' i.id %}">
+                        <i class="bi bi-pencil-square text-dark"></i>
+                    </a>
+                    <form action="{% url 'employee_delete' i.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="sumbit" class="btn">
+                            <i class="bi bi-trash3 text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+
+                
+              </tr>
+            {% endfor %}
+        </tbody>
+    </thead>
+
+  </table>
+{% endblock content %}
